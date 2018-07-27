@@ -1,24 +1,23 @@
 version: 2
 
 test-defaults: &test-defaults
-  working_directory: ~/graphql-directive-uid
+  working_directory: ~/graphql-directive-auth
   steps:
     - attach_workspace:
-        at: ~/graphql-directive-uid
+        at: ~/graphql-directive-auth
     - run: |
-        # uncoment if you implement directive
-        # yarn lint
-        # yarn test
+        yarn lint
+        yarn test
 
 jobs:
   install-dependencies:
-    working_directory: ~/graphql-directive-uid
+    working_directory: ~/graphql-directive-auth
     docker:
       - image: circleci/node:6
     steps:
       - checkout
       - attach_workspace:
-          at: ~/graphql-directive-uid
+          at: ~/graphql-directive-auth
       - restore_cache:
           keys:
             - dependencies-{{ checksum "yarn.lock" }}
@@ -47,12 +46,12 @@ jobs:
       - image: circleci/node:9
 
   publish:
-    working_directory: ~/graphql-directive-uid
+    working_directory: ~/graphql-directive-auth
     docker:
       - image: circleci/node:6
     steps:
       - attach_workspace:
-          at: ~/graphql-directive-uid
+          at: ~/graphql-directive-auth
       - run: |
           npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm publish
