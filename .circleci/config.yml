@@ -1,0 +1,80 @@
+version: 2
+
+test-defaults: &test-defaults
+  working_directory: ~/graphql-directive-auth
+  steps:
+    - attach_workspace:
+        at: ~/graphql-directive-auth
+    - run: |
+        yarn lint
+        yarn test
+
+jobs:
+  install-dependencies:
+    working_directory: ~/graphql-directive-auth
+    docker:
+      - image: circleci/node:6
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/graphql-directive-auth
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "yarn.lock" }}
+            - dependencies-
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          key: dependencies-{{ checksum "yarn.lock" }}
+          paths: node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  lint-and-test-node-6:
+    <<: *test-defaults
+    docker:
+      - image: circleci/node:6
+
+  lint-and-test-node-8:
+    <<: *test-defaults
+    docker:
+      - image: circleci/node:8
+
+  lint-and-test-node-9:
+    <<: *test-defaults
+    docker:
+      - image: circleci/node:9
+
+  publish:
+    working_directory: ~/graphql-directive-auth
+    docker:
+      - image: circleci/node:6
+    steps:
+      - attach_workspace:
+          at: ~/graphql-directive-auth
+      - run: |
+          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm publish
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - install-dependencies
+      - lint-and-test-node-6:
+          requires:
+            - install-dependencies
+      - lint-and-test-node-8:
+          requires:
+            - install-dependencies
+      - lint-and-test-node-9:
+          requires:
+            - install-dependencies
+      - publish:
+          requires:
+            - install-dependencies
+          filters:
+            tags:
+              only: /v\d+\.\d+\.\d+.*/
+            branches:
+              ignore: /.*/

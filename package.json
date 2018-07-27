@@ -1,0 +1,34 @@
+{
+  "name": "graphql-directive-auth",
+  "version": "0.0.0",
+  "description": "GraphQL directive auth",
+  "main": "index.js",
+  "repository": "git@github.com:graphql-community/graphql-directive-auth.git",
+  "author": "Czysty <lukasz.czyszczonik@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon example/index.js",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "peerDependencies": {
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.0.5"
+  },
+  "devDependencies": {
+    "apollo-server-express": "^2.0.0",
+    "body-parser": "^1.18.3",
+    "eslint": "^5.2.0",
+    "eslint-config-callstack-io": "^1.1.2",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.0.5",
+    "jest": "^23.4.1",
+    "mock-express-request": "^0.2.2",
+    "nock": "^9.4.3",
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.3.0"
+  }
+}
