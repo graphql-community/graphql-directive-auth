@@ -35,6 +35,7 @@ const schema = makeExecutableSchema({
   resolvers,
   schemaDirectives: {
     isAuthenticated: isAuthenticated('your_secret_token'),
+    hasRole: hasRole('your_secret_token'),
   },
 });
 ```
@@ -46,6 +47,7 @@ const schema = makeExecutableSchema({
 # Directive Parameters
 
 - '@isAuthenticated' - check if user is authenticated
+- '@hasRole(role: **name**)' - check if user is authenticated
 
 > TODO
 
@@ -63,18 +65,18 @@ The MIT License (MIT) 2018 - Luke Czyszczonik - <mailto:lukasz.czyszczonik@gmail
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/graphql-community/graphql-directive-rest.svg?style=flat-square
-[build]: https://travis-ci.org/graphql-community/graphql-directive-rest
-[coverage-badge]: https://img.shields.io/codecov/c/github/graphql-community/graphql-directive-rest.svg?style=flat-square
-[coverage]: https://codecov.io/github/graphql-community/graphql-directive-rest
-[version-badge]: https://img.shields.io/npm/v/graphql-directive-rest.svg?style=flat-square
-[package]: https://www.npmjs.com/package/graphql-directive-rest
-[downloads-badge]: https://img.shields.io/npm/dm/graphql-directive-rest.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/graphql-directive-rest
-[license-badge]: https://img.shields.io/npm/l/graphql-directive-rest.svg?style=flat-square
-[license]: https://github.com/graphql-community/graphql-directive-rest/blob/master/LICENSE
+[build-badge]: https://img.shields.io/travis/graphql-community/graphql-directive-auth.svg?style=flat-square
+[build]: https://travis-ci.org/graphql-community/graphql-directive-auth
+[coverage-badge]: https://img.shields.io/codecov/c/github/graphql-community/graphql-directive-auth.svg?style=flat-square
+[coverage]: https://codecov.io/github/graphql-community/graphql-directive-auth
+[version-badge]: https://img.shields.io/npm/v/graphql-directive-auth.svg?style=flat-square
+[package]: https://www.npmjs.com/package/graphql-directive-auth
+[downloads-badge]: https://img.shields.io/npm/dm/graphql-directive-auth.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/graphql-directive-auth
+[license-badge]: https://img.shields.io/npm/l/graphql-directive-auth.svg?style=flat-square
+[license]: https://github.com/graphql-community/graphql-directive-auth/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/graphql-community/graphql-directive-rest/blob/master/CODE_OF_CONDUCT.md
+[coc]: https://github.com/graphql-community/graphql-directive-auth/blob/master/CODE_OF_CONDUCT.md

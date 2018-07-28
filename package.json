@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "nodemon example/index.js",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "token": "node generateToken"
   },
   "peerDependencies": {
     "graphql": "^0.13.2",
@@ -23,7 +24,7 @@
     "express": "^4.16.3",
     "graphql": "^0.13.2",
     "graphql-tools": "^3.0.5",
-    "jest": "^23.4.1",
+    "jest": "^23.4.2",
     "mock-express-request": "^0.2.2",
     "nock": "^9.4.3",
     "nodemon": "^1.18.3"
