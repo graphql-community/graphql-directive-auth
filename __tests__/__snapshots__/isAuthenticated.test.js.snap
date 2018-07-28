@@ -11,3 +11,11 @@ GraphQLDirective {
   "name": "isAuthenticated",
 }
 `;
+
+exports[`if call resolver if Authorization header is set to correct value 1`] = `
+Object {
+  "data": Object {
+    "me": Any<String>,
+  },
+}
+`;

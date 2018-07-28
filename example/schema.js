@@ -1,18 +1,20 @@
 const { gql } = require('apollo-server-express');
-const isAuthenticated = require('../src/index');
+const { isAuthenticated, hasRole } = require('../src/index');
 const { makeExecutableSchema } = require('graphql-tools');
 
 const typeDefs = gql`
   type Query {
     me: String @isAuthenticated
-    you: String
+    you: String @hasRole(role: "USER")
+    together: String @hasRole(role: "MALINA")
   }
 `;
 
 const resolvers = {
   Query: {
-    me: () => Math.random() + 1,
-    you: () => Math.random() - 1,
+    me: () => `me-${Math.random()}`,
+    you: () => `you-${Math.random()}`,
+    together: () => `together-${Math.random()}`,
   },
 };
 
@@ -21,6 +23,7 @@ const schema = makeExecutableSchema({
   resolvers,
   schemaDirectives: {
     isAuthenticated: isAuthenticated('123'),
+    hasRole: hasRole('123'),
   },
 });
 

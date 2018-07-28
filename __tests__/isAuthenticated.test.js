@@ -1,10 +1,10 @@
 const { graphql } = require('graphql');
-const directive = require('../src/index');
+const { isAuthenticated } = require('../src/index');
 const MockExpressRequest = require('mock-express-request');
 const schema = require('../example/schema');
 
 test('getDirectiveDeclaration should be defined', () => {
-  expect(directive('123').getDirectiveDeclaration()).toMatchSnapshot();
+  expect(isAuthenticated('123').getDirectiveDeclaration()).toMatchSnapshot();
 });
 
 test('if call resolver if Authorization header is set to correct value', () =>
@@ -25,7 +25,11 @@ test('if call resolver if Authorization header is set to correct value', () =>
       }),
     }
   ).then(response => {
-    expect(response.data.me).toBeTruthy();
+    expect(response).toMatchSnapshot({
+      data: {
+        me: expect.any(String),
+      },
+    });
   }));
 
 test('if throw an Error if Authorization header is not set to correct value', () =>

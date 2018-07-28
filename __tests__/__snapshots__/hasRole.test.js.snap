@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getDirectiveDeclaration should be defined 1`] = `
+GraphQLDirective {
+  "args": Array [
+    Object {
+      "astNode": undefined,
+      "defaultValue": undefined,
+      "description": null,
+      "name": "role",
+      "type": "String",
+    },
+  ],
+  "astNode": undefined,
+  "description": undefined,
+  "locations": Array [
+    "FIELD_DEFINITION",
+  ],
+  "name": "hasRole",
+}
+`;
+
+exports[`if role are correct 1`] = `
+Object {
+  "data": Object {
+    "you": Any<String>,
+  },
+}
+`;
+
+exports[`if throw an Error when user does not have correct roles 1`] = `
+Object {
+  "data": Object {
+    "together": null,
+  },
+  "errors": Anything,
+}
+`;
+
+exports[`if throw error if no role inside token payload 1`] = `
+Object {
+  "data": Object {
+    "you": null,
+  },
+  "errors": Anything,
+}
+`;
