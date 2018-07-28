@@ -31,5 +31,8 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.3.0"
+  },
+  "jest": {
+    "testURL": "http://localhost"
   }
 }

@@ -61,9 +61,9 @@ workflows:
   build-and-test:
     jobs:
       - install-dependencies
-      - lint-and-test-node-6:
-          requires:
-            - install-dependencies
+      # - lint-and-test-node-6:
+      #     requires:
+      #       - install-dependencies
       - lint-and-test-node-8:
           requires:
             - install-dependencies
