@@ -38,7 +38,7 @@ module.exports = appSecret =>
           );
         }
 
-        return resolve.apply(this, root, args, { ...context, user }, info);
+        return resolve.call(this, root, args, { ...context, user }, info);
       };
     }
   };

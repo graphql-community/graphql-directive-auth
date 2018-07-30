@@ -21,7 +21,7 @@ module.exports = appSecret =>
       field.resolve = async (root, args, context, info) => {
         const user = authenticate(context, appSecret);
 
-        return resolve.apply(this, root, args, { ...context, user }, info);
+        return resolve.call(this, root, args, { ...context, user }, info);
       };
     }
   };
