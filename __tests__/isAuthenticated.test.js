@@ -12,7 +12,11 @@ test('if call resolver if Authorization header is set to correct value', () =>
     schema,
     `
       query {
-        me
+        me {
+          id
+          username
+          isAdmin
+        }
       }
     `,
     {},
@@ -27,7 +31,11 @@ test('if call resolver if Authorization header is set to correct value', () =>
   ).then(response => {
     expect(response).toMatchSnapshot({
       data: {
-        me: expect.any(String),
+        me: {
+          id: expect.any(String),
+          username: expect.any(String),
+          isAdmin: expect.any(Boolean),
+        },
       },
     });
   }));
@@ -37,7 +45,11 @@ test('if throw an Error if Authorization header is not set to correct value', ()
     schema,
     `
       query {
-        me
+        me {
+          id
+          username
+          isAdmin
+        }
       }
     `,
     {},
