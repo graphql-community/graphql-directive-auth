@@ -7,7 +7,7 @@
 
 # Introduction
 
-This packages is under development!
+> TODO
 
 # Table of Contents
 
@@ -50,6 +50,13 @@ const schema = makeExecutableSchema({
 - '@hasRole(role: **name**)' - check if user is authenticated
 
 > TODO
+
+> if you use [`graphql-import`](https://github.com/prismagraphql/graphql-import) then you need to add this definition on top of the schema:
+
+```graphql
+directive @isAuthenticated on FIELD | FIELD_DEFINITION
+directive @hasRole(role: String) on FIELD | FIELD_DEFINITION
+```
 
 ## Contributing
 

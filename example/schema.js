@@ -3,8 +3,14 @@ const { isAuthenticated, hasRole } = require('../src/index');
 const { makeExecutableSchema } = require('graphql-tools');
 
 const typeDefs = gql`
+  type User {
+    id: ID!
+    username: String!
+    isAdmin: Boolean
+  }
+
   type Query {
-    me: String @isAuthenticated
+    me: User @isAuthenticated
     you: String @hasRole(role: "USER")
     together: String @hasRole(role: "MALINA")
   }
@@ -12,9 +18,13 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    me: () => `me-${Math.random()}`,
-    you: () => `you-${Math.random()}`,
-    together: () => `together-${Math.random()}`,
+    me: () => ({
+      id: 'uniqKey1',
+      username: 'Bond',
+      isAdmin: true,
+    }),
+    you: () => `you are ${Math.random() * 100}`,
+    together: () => Math.random() * 10,
   },
 };
 

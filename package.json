@@ -2,8 +2,11 @@
   "name": "graphql-directive-auth",
   "version": "0.2.0",
   "description": "GraphQL directive auth",
-  "main": "index.js",
-  "repository": "git@github.com:graphql-community/graphql-directive-auth.git",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com:graphql-community/graphql-directive-auth.git"
+  },
   "author": "Czysty <lukasz.czyszczonik@gmail.com>",
   "license": "MIT",
   "scripts": {
