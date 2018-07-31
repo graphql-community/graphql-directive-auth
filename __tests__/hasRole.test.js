@@ -48,7 +48,7 @@ test('if role are correct', () =>
       req: new MockExpressRequest({
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJyb2xlIjpbIlVTRVIiLCJNQU5BR0VSIiwiQURNSU4iXSwiaWF0IjoxNTMyNzgzOTQ5fQ.GrDx9CAhf2XX9BdBEcMstKWIAonV_TYkTiCml67f9tg',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTUzMzA0ODk5N30.DISf4XuHkVo7YPXjY2VQWXgZge-c_ejLzsiBql2mXIs',
         },
       }),
     }
@@ -74,13 +74,13 @@ test('if throw an Error when user does not have correct roles', () =>
       req: new MockExpressRequest({
         headers: {
           Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJyb2xlIjpbIlVTRVIiLCJNQU5BR0VSIiwiQURNSU4iXSwiaWF0IjoxNTMyNzgzOTQ5fQ.GrDx9CAhf2XX9BdBEcMstKWIAonV_TYkTiCml67f9tg',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTUzMzA0ODk5N30.DISf4XuHkVo7YPXjY2VQWXgZge-c_ejLzsiBql2mXIs',
         },
       }),
     }
   ).then(response => {
     expect(response.errors[0].message).toEqual(
-      'Must have role: MALINA, you have role: USER, MANAGER, ADMIN'
+      'Must have role: MALINA, you have role: USER'
     );
     expect(response.data.together).toBeNull();
     expect(response).toMatchSnapshot({
