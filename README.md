@@ -47,7 +47,7 @@ const schema = makeExecutableSchema({
 # Directive Parameters
 
 - '@isAuthenticated' - check if user is authenticated
-- '@hasRole(role: **name**)' - check if user is authenticated
+- '@hasRole(role: "user, admin")' - check if user is authenticated
 
 > TODO
 
