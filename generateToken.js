@@ -7,7 +7,7 @@ const SECRET = process.env.secret || '123';
   const token = jwt.sign(
     {
       id: 'user_id',
-      role: ['USER', 'MANAGER', 'ADMIN'],
+      role: 'USER',
     },
     SECRET
   );

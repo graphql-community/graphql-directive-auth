@@ -19,6 +19,10 @@ module.exports = appSecret =>
       });
     }
 
+    checkRole(userRole, requiredRole) {
+      return userRole === requiredRole;
+    }
+
     visitFieldDefinition(field) {
       const { resolve = defaultFieldResolver } = field;
 
@@ -30,11 +34,11 @@ module.exports = appSecret =>
           throw new Error(`Invalid token payload!`);
         }
 
-        const hasRole = user.role.includes(role);
+        const hasRole = this.checkRole(user.role, role);
 
         if (!hasRole) {
           throw new Error(
-            `Must have role: ${role}, you have role: ${user.role.join(', ')}`
+            `Must have role: ${role}, you have role: ${user.role}`
           );
         }
 
