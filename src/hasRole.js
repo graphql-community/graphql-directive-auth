@@ -19,8 +19,11 @@ module.exports = appSecret =>
       });
     }
 
-    checkRole(userRole, requiredRole) {
-      return userRole === requiredRole;
+    checkRole(userRole, requiredRoles) {
+      return requiredRoles
+        .split(',')
+        .map(role => role.trim().toLowerCase())
+        .includes(userRole.toLowerCase());
     }
 
     visitFieldDefinition(field) {
