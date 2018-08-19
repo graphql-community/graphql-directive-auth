@@ -9,10 +9,16 @@ const typeDefs = gql`
     isAdmin: Boolean
   }
 
+  type Custom {
+    public: String
+    private: String @hasRole(role: "MALINA")
+  }
+
   type Query {
     me: User @isAuthenticated
     you: String @hasRole(role: "USER")
     together: String @hasRole(role: "MALINA")
+    field: Custom
   }
 `;
 
@@ -25,6 +31,7 @@ const resolvers = {
     }),
     you: () => `you are ${Math.random() * 100}`,
     together: () => Math.random() * 10,
+    field: () => ({ public: 'public_exists', private: 'private_exists' }),
   },
 };
 

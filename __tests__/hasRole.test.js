@@ -90,3 +90,34 @@ test('if throw an Error when user does not have correct roles', () =>
       errors: expect.anything(),
     });
   }));
+
+test('if return null for a field when does not have permissions', () =>
+  graphql(
+    schema,
+    `
+      query {
+        field {
+          public
+          private
+        }
+      }
+    `,
+    {},
+    {
+      req: new MockExpressRequest({
+        headers: {
+          Authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXJfaWQiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTUzMzA0ODk5N30.DISf4XuHkVo7YPXjY2VQWXgZge-c_ejLzsiBql2mXIs',
+        },
+      }),
+    }
+  ).then(response => {
+    expect(response).toMatchSnapshot({
+      data: {
+        field: {
+          public: 'public_exists',
+          private: null,
+        },
+      },
+    });
+  }));
