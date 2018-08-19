@@ -29,6 +29,8 @@ module.exports = appSecret =>
     visitFieldDefinition(field) {
       const { resolve = defaultFieldResolver } = field;
 
+      const hasResolveFn = field.resolve !== undefined;
+
       field.resolve = async (root, args, context, info) => {
         const user = authenticate(context, appSecret);
         const role = this.args.role;
@@ -39,7 +41,9 @@ module.exports = appSecret =>
 
         const hasRole = this.checkRole(user.role, role);
 
-        if (!hasRole) {
+        if (!hasRole && !hasResolveFn) {
+          return null;
+        } else if (!hasRole) {
           throw new Error(
             `Must have role: ${role}, you have role: ${user.role}`
           );

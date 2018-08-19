@@ -20,6 +20,17 @@ GraphQLDirective {
 }
 `;
 
+exports[`if return null for a field when does not have permissions 1`] = `
+Object {
+  "data": Object {
+    "field": Object {
+      "private": null,
+      "public": "public_exists",
+    },
+  },
+}
+`;
+
 exports[`if role are correct 1`] = `
 Object {
   "data": Object {
