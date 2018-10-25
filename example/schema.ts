@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
-const { isAuthenticated, hasRole } = require('../src/index');
-const { makeExecutableSchema } = require('graphql-tools');
+import { gql } from 'apollo-server-express';
+import { isAuthenticated, hasRole } from '../src/index';
+import { makeExecutableSchema } from 'graphql-tools';
 
 const typeDefs = gql`
   type User {
@@ -35,7 +35,7 @@ const resolvers = {
   },
 };
 
-const schema = makeExecutableSchema({
+export default makeExecutableSchema({
   typeDefs,
   resolvers,
   schemaDirectives: {
@@ -43,5 +43,3 @@ const schema = makeExecutableSchema({
     hasRole: hasRole('123'),
   },
 });
-
-module.exports = schema;
