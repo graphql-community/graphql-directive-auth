@@ -1,12 +1,12 @@
-const { SchemaDirectiveVisitor } = require('graphql-tools');
-const {
+import { SchemaDirectiveVisitor } from 'graphql-tools';
+import {
   DirectiveLocation,
   GraphQLDirective,
   defaultFieldResolver,
-} = require('graphql');
-const { authenticate } = require('./utils');
+} from 'graphql';
+import { authenticate } from './utils';
 
-module.exports = appSecret =>
+export default (appSecret: string) =>
   class isAuthenticated extends SchemaDirectiveVisitor {
     static getDirectiveDeclaration(directiveName = 'isAuthenticated') {
       return new GraphQLDirective({
@@ -15,10 +15,10 @@ module.exports = appSecret =>
       });
     }
 
-    visitFieldDefinition(field) {
+    visitFieldDefinition(field: any) {
       const { resolve = defaultFieldResolver } = field;
 
-      field.resolve = async (root, args, context, info) => {
+      field.resolve = async (root: any, args: any, context: any, info: any) => {
         const user = authenticate(context, appSecret);
 
         return resolve.call(this, root, args, { ...context, user }, info);

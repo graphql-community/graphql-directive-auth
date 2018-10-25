@@ -1,6 +1,8 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-class AuthError extends Error {
+export class AuthError extends Error {
+  code: number;
+
   constructor(message = 'Error occured', code = 400) {
     super(message);
 
@@ -8,7 +10,7 @@ class AuthError extends Error {
   }
 }
 
-const authenticate = (context, secret) => {
+export const authenticate = (context: any, secret: string) => {
   const authorization = context.req.get('Authorization');
 
   if (authorization) {
@@ -23,6 +25,3 @@ const authenticate = (context, secret) => {
 
   throw new AuthError('Not authorized!', 401);
 };
-
-module.exports.AuthError = AuthError;
-module.exports.authenticate = authenticate;

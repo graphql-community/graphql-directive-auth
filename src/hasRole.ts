@@ -1,13 +1,13 @@
-const { SchemaDirectiveVisitor } = require('graphql-tools');
-const {
+import { SchemaDirectiveVisitor } from 'graphql-tools';
+import {
   DirectiveLocation,
   GraphQLDirective,
   defaultFieldResolver,
   GraphQLString,
-} = require('graphql');
-const { authenticate } = require('./utils');
+} from 'graphql';
+import { authenticate } from './utils';
 
-module.exports = appSecret =>
+export default (appSecret: string) =>
   class HasRole extends SchemaDirectiveVisitor {
     static getDirectiveDeclaration(directiveName = 'hasRole') {
       return new GraphQLDirective({
@@ -19,20 +19,20 @@ module.exports = appSecret =>
       });
     }
 
-    checkRole(userRole, requiredRoles) {
+    checkRole(userRole: any, requiredRoles: any) {
       return requiredRoles
         .split(',')
-        .map(role => role.trim().toLowerCase())
+        .map((role: any) => role.trim().toLowerCase())
         .includes(userRole.toLowerCase());
     }
 
-    visitFieldDefinition(field) {
+    visitFieldDefinition(field: any) {
       const { resolve = defaultFieldResolver } = field;
 
       const hasResolveFn = field.resolve !== undefined;
 
-      field.resolve = async (root, args, context, info) => {
-        const user = authenticate(context, appSecret);
+      field.resolve = async (root: any, args: any, context: any, info: any) => {
+        const user: any = authenticate(context, appSecret);
         const role = this.args.role;
 
         if (!user.role) {
