@@ -29,7 +29,9 @@ test('if throw error if no role inside token payload', () =>
       }),
     }
   ).then(response => {
-    expect(response.errors[0].message).toEqual('Invalid token payload!');
+    expect(response.errors[0].message).toEqual(
+      'Invalid token payload, missing role property inside!'
+    );
     expect(response.data.you).toBeNull();
     expect(response).toMatchSnapshot({
       data: {
