@@ -4,4 +4,9 @@ module.exports = {
     '@babel/proposal-class-properties',
     '@babel/proposal-object-rest-spread',
   ],
+  env: {
+    testing: {
+      presets: [['@babel/env', { modules: false }], '@babel/preset-typescript'],
+    },
+  },
 };

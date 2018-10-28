@@ -1,10 +1,16 @@
-const { graphql } = require('graphql');
-const { isAuthenticated } = require('../src/index');
-const MockExpressRequest = require('mock-express-request');
-const schema = require('../example/schema');
+import { graphql } from 'graphql';
+import MockExpressRequest from 'mock-express-request';
+import AuthDirective from '../src/index';
+import schema from '../example/schema';
+
+beforeAll(() => {
+  process.env.APP_SECRET = '123';
+});
 
 test('getDirectiveDeclaration should be defined', () => {
-  expect(isAuthenticated('123').getDirectiveDeclaration()).toMatchSnapshot();
+  expect(
+    AuthDirective().isAuthenticated.getDirectiveDeclaration()
+  ).toMatchSnapshot();
 });
 
 test('if call resolver if Authorization header is set to correct value', () =>

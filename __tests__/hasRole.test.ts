@@ -1,10 +1,14 @@
-const { graphql } = require('graphql');
-const { hasRole } = require('../src/index');
-const MockExpressRequest = require('mock-express-request');
-const schema = require('../example/schema');
+import { graphql } from 'graphql';
+import MockExpressRequest from 'mock-express-request';
+import AuthDirective from '../src/index';
+import schema from '../example/schema';
+
+beforeAll(() => {
+  process.env.APP_SECRET = '123';
+});
 
 test('getDirectiveDeclaration should be defined', () => {
-  expect(hasRole('123').getDirectiveDeclaration()).toMatchSnapshot();
+  expect(AuthDirective().hasRole.getDirectiveDeclaration()).toMatchSnapshot();
 });
 
 test('if throw error if no role inside token payload', () =>

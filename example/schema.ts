@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express';
-import { isAuthenticated, hasRole } from '../src/index';
+import AuthDirective from '../src/index';
 import { makeExecutableSchema } from 'graphql-tools';
 
 const typeDefs = gql`
@@ -39,7 +39,6 @@ export default makeExecutableSchema({
   typeDefs,
   resolvers,
   schemaDirectives: {
-    isAuthenticated: isAuthenticated('123'),
-    hasRole: hasRole('123'),
+    ...AuthDirective(),
   },
 });
