@@ -1,4 +1,10 @@
 declare module 'graphql-directive-auth' {
-  export function hasRole(secret: string): any;
-  export function isAuthenticated(secret: string): any;
+  interface AuthDirective {
+    hasRole: any;
+    isAuthenticated: any;
+  }
+
+  type authFunc = (any: any) => any;
+
+  export default function(authFun: authFunc): AuthDirective;
 }
