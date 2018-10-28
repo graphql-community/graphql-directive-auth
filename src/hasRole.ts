@@ -19,7 +19,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
       });
     }
 
-    checkRole(auth: any, requiredRoles: any): CheckRole {
+    checkRole(auth: any, requiredRoles: any) {
       const userRole = auth.role;
 
       if (!userRole) {
@@ -36,8 +36,6 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
           `Must have role: ${requiredRoles}, you have role: ${auth.role}`
         );
       }
-
-      return userRole;
     }
 
     visitFieldDefinition(field: any) {
@@ -52,7 +50,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
         const checkRole = checkRoleFunc || this.checkRole;
 
         try {
-          const { userRole } = checkRole(auth, allowedRoles);
+          checkRole(auth, allowedRoles);
         } catch (error) {
           if (!hasResolveFn) {
             return null;
