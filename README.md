@@ -7,15 +7,22 @@
 
 # Introduction
 
-> TODO
+The `graphql-directive-auth` was created for help with common authenticate task that is faced in almost every API.
 
 # Table of Contents
 
+- [graphql-directive-auth](#graphql-directive-auth)
 - [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
-- [Usage](#Usage)
-- [Parameters](#parameters)
-- [Contributing](#contributing)
+- [Usage](#usage)
+  - [Default one](#default-one)
+    - [What `default` means, and what I **need to do**?](#what-default-means-and-what-i-need-to-do)
+    - [Example:](#example)
+  - [Custom behaviour of authentication functions](#custom-behaviour-of-authentication-functions)
+  - [Example queries:](#example-queries)
+- [Directive Parameters](#directive-parameters)
+  - [Contributing](#contributing)
 - [LICENSE](#license)
 
 # Installation
@@ -26,18 +33,96 @@ yarn add graphql-directive-auth
 
 # Usage
 
-- set `appSecret` parameter with your secret to decode JWT token
-  example:
+We are able to use directives in two different way:
+
+## Default one
+
+To use default directive behavior, you need to set `APP_SECRET` environment variable, and that's all.
+
+### What `default` means, and what I **need to do**?
+
+- `@isAuthenitaced` - Just after you set environment variables, you need to have a valid JWT token and send it by `Authorization` in the HTTP headers. That's all, the directive will be check your token and throw an error if the token is invalid or expired.
+- `@hasRole` - is for checking roles of an authenticated user. To use it correctly, inside your JWT token you should have the `role` property with the correct role. If the user role doesn't match with the provided role, then directive will throw an error.
+
+> `@hasRole` before checking role is doing authentication to get roles from JWT token.
+
+### Example:
 
 ```js
+import AuthDirective from 'graphql-directive-auth';
+// or
+const AuthDirective = require('graphql-directive-auth');
+
+// set environment variable, but in better way ;)
+process.env.APP_SECRET = 'your_secret_key';
+
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
   schemaDirectives: {
-    isAuthenticated: isAuthenticated('your_secret_token'),
-    hasRole: hasRole('your_secret_token'),
+    // to use @hasRole and @isAuthenticated directives
+    ...AuthDirective,
+    // custom name for @isAuthenticated
+    auth: AuthDirective().isAuthenticated,
+    // custom name for @hasRole
+    role: AuthDirective().hasRole,
   },
 });
+```
+
+## Custom behaviour of authentication functions
+
+If you need custom Authentication you can pass your authenticated function to the main `AuthDirective` functions.
+
+Authentication function signature:
+
+```js
+context => {
+  // your logic here
+
+  // you should return an object
+  // this object will be passed inside your resolver
+  // it is available inside context via auth property
+  return {
+    user: {
+      id: 'your_user_id',
+    },
+  };
+};
+```
+
+usage:
+
+```js
+import AuthDirectives from 'graphql-directive-auth';
+// or
+const AuthDirectives = require('graphql-directive-auth');
+
+const customAuth = AuthDirectives(your_custom_funs);
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    // to use @hasRole and @isAuthenticated directives
+    ...customAuth,
+    // custom name for @isAuthenticated
+    auth: customAuth().isAuthenticated,
+    // custom name for @hasRole
+    role: customAuth().hasRole,
+  },
+```
+
+resolver:
+
+```js
+export default {
+  Query: {
+    me() (root, args, ctx){
+      const userId = ctx.auth.user.id; // your_user_id
+    },
+  },
+};
 ```
 
 ## Example queries:
