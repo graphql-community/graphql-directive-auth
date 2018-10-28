@@ -10,13 +10,21 @@ export class AuthError extends Error {
   }
 }
 
-export const authenticate = (context: any, secret: string) => {
+export const authenticate = (context: any) => {
   const authorization = context.req.get('Authorization');
 
   if (authorization) {
     const token = authorization.replace('Bearer ', '');
 
     try {
+      const secret = process.env.APP_SECRET;
+
+      if (!secret) {
+        throw new Error(
+          'Secret not provided, please provide `APP_SECRET` with your token'
+        );
+      }
+
       return jwt.verify(token, secret);
     } catch (e) {
       throw new AuthError('Invalid token!', 401);

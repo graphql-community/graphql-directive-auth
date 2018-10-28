@@ -4,9 +4,8 @@ import {
   GraphQLDirective,
   defaultFieldResolver,
 } from 'graphql';
-import { authenticate } from './utils';
 
-export default (appSecret: string) =>
+export default (authenticate: (ctx: any) => any) =>
   class isAuthenticated extends SchemaDirectiveVisitor {
     static getDirectiveDeclaration(directiveName = 'isAuthenticated') {
       return new GraphQLDirective({
@@ -19,9 +18,9 @@ export default (appSecret: string) =>
       const { resolve = defaultFieldResolver } = field;
 
       field.resolve = async (root: any, args: any, context: any, info: any) => {
-        const user = authenticate(context, appSecret);
+        const auth = authenticate(context);
 
-        return resolve.call(this, root, args, { ...context, user }, info);
+        return resolve.call(this, root, args, { ...context, auth }, info);
       };
     }
   };
