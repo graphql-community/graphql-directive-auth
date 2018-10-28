@@ -3,6 +3,9 @@
   "version": "0.2.5",
   "description": "GraphQL directive auth",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com:graphql-community/graphql-directive-auth.git"
