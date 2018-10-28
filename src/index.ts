@@ -7,7 +7,7 @@ export interface CheckRole {
   userRole: any;
 }
 export type authFunc = (any: any) => any;
-export type checkRoleFunc = (auth: any, allowedRoles: any) => CheckRole;
+export type checkRoleFunc = (auth: any, allowedRoles: any) => void;
 
 export default (
   authenticateFunc: authFunc = authenticate,

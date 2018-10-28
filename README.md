@@ -16,11 +16,12 @@ The `graphql-directive-auth` was created for help with common authenticate task 
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Default one](#default-one)
+  - [Default](#default)
     - [What `default` means, and what I **need to do**?](#what-default-means-and-what-i-need-to-do)
     - [Example:](#example)
   - [Custom behaviour of authentication functions](#custom-behaviour-of-authentication-functions)
-  - [Example queries:](#example-queries)
+  - [Custom check role function](#custom-check-role-function)
+    - [how to creat own function](#how-to-creat-own-function)
 - [Directive Parameters](#directive-parameters)
   - [Contributing](#contributing)
 - [LICENSE](#license)
@@ -35,7 +36,7 @@ yarn add graphql-directive-auth
 
 We are able to use directives in two different way:
 
-## Default one
+## Default
 
 To use default directive behavior, you need to set `APP_SECRET` environment variable, and that's all.
 
@@ -125,16 +126,20 @@ export default {
 };
 ```
 
-## Example queries:
+## Custom check role function
 
-> TODO
+The same as authenticate function you can add your own logic to checking roles.
+
+### how to creat own function
+
+- Function accept two parameters, one is the context and the second is value from the directive use
+- To reject an acces to the particular field, you need to throw an Error that will be caught by the directive and returned if required.
+- function don't need to return enything special
 
 # Directive Parameters
 
 - '@isAuthenticated' - check if user is authenticated
 - '@hasRole(role: "user, admin")' - check if user is authenticated
-
-> TODO
 
 > if you use [`graphql-import`](https://github.com/prismagraphql/graphql-import) then you need to add this definition on top of the schema:
 
