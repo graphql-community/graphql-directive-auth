@@ -5,9 +5,9 @@ import {
   defaultFieldResolver,
   GraphQLString,
 } from 'graphql';
-import { authenticate } from './utils';
+import { authFunc, checkRoleFunc, CheckRole } from './index';
 
-export default (authenticate: (ctx: any) => any) =>
+export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
   class HasRole extends SchemaDirectiveVisitor {
     static getDirectiveDeclaration(directiveName = 'hasRole') {
       return new GraphQLDirective({
@@ -19,11 +19,25 @@ export default (authenticate: (ctx: any) => any) =>
       });
     }
 
-    checkRole(role: any, requiredRoles: any) {
-      return requiredRoles
+    checkRole(auth: any, requiredRoles: any): CheckRole {
+      const userRole = auth.role;
+
+      if (!userRole) {
+        throw new Error(`Invalid token payload, missing role property inside!`);
+      }
+
+      const hasNeededRole = requiredRoles
         .split(',')
         .map((role: any) => role.trim().toLowerCase())
-        .includes(role.toLowerCase());
+        .includes(userRole.toLowerCase());
+
+      if (!hasNeededRole) {
+        throw new Error(
+          `Must have role: ${requiredRoles}, you have role: ${auth.role}`
+        );
+      }
+
+      return userRole;
     }
 
     visitFieldDefinition(field: any) {
@@ -33,20 +47,18 @@ export default (authenticate: (ctx: any) => any) =>
 
       field.resolve = async (root: any, args: any, context: any, info: any) => {
         const auth = authenticate(context);
-        const role = this.args.role;
+        const allowedRoles = this.args.role;
 
-        if (!auth.role) {
-          throw new Error(`Invalid token payload!`);
-        }
+        const checkRole = checkRoleFunc || this.checkRole;
 
-        const hasRole = this.checkRole(auth.role, role);
+        try {
+          const { userRole } = checkRole(auth, allowedRoles);
+        } catch (error) {
+          if (!hasResolveFn) {
+            return null;
+          }
 
-        if (!hasRole && !hasResolveFn) {
-          return null;
-        } else if (!hasRole) {
-          throw new Error(
-            `Must have role: ${role}, you have role: ${auth.role}`
-          );
+          throw error;
         }
 
         return resolve.call(this, root, args, { ...context, auth }, info);
