@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import isAuthenticated from './isAuthenticated';
 import hasRole from './hasRole';
 import { authenticate } from './utils';
