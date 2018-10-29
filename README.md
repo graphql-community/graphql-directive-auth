@@ -7,7 +7,7 @@
 
 # Introduction
 
-The `graphql-directive-auth` was created for help with common authenticate task that is faced in almost every API.
+The `graphql-directive-auth` was created to help with common authentication tasks that is faced in almost every API.
 
 # Table of Contents
 
@@ -21,7 +21,7 @@ The `graphql-directive-auth` was created for help with common authenticate task 
     - [Example:](#example)
   - [Custom behaviour of authentication functions](#custom-behaviour-of-authentication-functions)
   - [Custom check role function](#custom-check-role-function)
-    - [how to creat own function](#how-to-creat-own-function)
+    - [How to create your own function](#how-to-create-your-own-function)
 - [Directive Parameters](#directive-parameters)
   - [Contributing](#contributing)
 - [LICENSE](#license)
@@ -38,7 +38,7 @@ We are able to use directives in two different way:
 
 ## Default
 
-To use default directive behavior, you need to set `APP_SECRET` environment variable, and that's all.
+To use the default directive behaviour, you need to set `APP_SECRET` environment variable, and that's all.
 
 ### What `default` means, and what I **need to do**?
 
@@ -130,7 +130,7 @@ export default {
 
 The same as authenticate function you can add your own logic to checking roles.
 
-### how to creat own function
+### How to create your own function
 
 - Function accept two parameters, one is the context and the second is value from the directive use
 - To reject an acces to the particular field, you need to throw an Error that will be caught by the directive and returned if required.
