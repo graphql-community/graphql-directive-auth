@@ -17,7 +17,7 @@ export default (authenticate: (ctx: any) => any) =>
     visitFieldDefinition(field: any) {
       const { resolve = defaultFieldResolver } = field;
 
-      field.resolve = async (root: any, args: any, context: any, info: any) => {
+      field.resolve = (root: any, args: any, context: any, info: any) => {
         const auth = authenticate(context);
 
         return resolve.call(this, root, args, { ...context, auth }, info);
