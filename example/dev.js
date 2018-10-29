@@ -1,4 +1,5 @@
-require('regenerator-runtime/runtime');
+require('@babel/polyfill');
+
 require('@babel/register')({ extensions: ['.js', '.ts'] });
 
 process.env.APP_SECRET = '123';
