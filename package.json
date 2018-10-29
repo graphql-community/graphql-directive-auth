@@ -1,6 +1,6 @@
 {
   "name": "graphql-directive-auth",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "GraphQL directive auth",
   "main": "dist/index.js",
   "files": [
