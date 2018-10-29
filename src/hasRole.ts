@@ -43,7 +43,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
 
       const hasResolveFn = field.resolve !== undefined;
 
-      field.resolve = async (root: any, args: any, context: any, info: any) => {
+      field.resolve = (root: any, args: any, context: any, info: any) => {
         const auth = authenticate(context);
         const allowedRoles = this.args.role;
 
