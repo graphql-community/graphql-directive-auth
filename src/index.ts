@@ -10,11 +10,16 @@ export interface CheckRole {
 export type authFunc = (any: any) => any;
 export type checkRoleFunc = (auth: any, allowedRoles: any) => void;
 
-export default (authenticateFunc?: authFunc, checkRoleFunc?: checkRoleFunc) => {
-  const auth = authenticateFunc ? authenticate : authenticate;
+export interface Args {
+  authenticateFunc?: authFunc;
+  checkRoleFunc?: checkRoleFunc;
+}
+
+export default (args: Args = {}) => {
+  const auth = args.authenticateFunc ? authenticate : authenticate;
 
   return {
     isAuthenticated: isAuthenticated(auth),
-    hasRole: hasRole(auth, checkRoleFunc),
+    hasRole: hasRole(auth, args.checkRoleFunc),
   };
 };

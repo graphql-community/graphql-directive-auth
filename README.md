@@ -99,7 +99,10 @@ import AuthDirectives from 'graphql-directive-auth';
 // or
 const AuthDirectives = require('graphql-directive-auth');
 
-const customAuth = AuthDirectives(your_custom_funs);
+const customAuth = AuthDirectives({
+  authenticateFunc: cusomFunc,
+  checkRoleFunc: cusomFunc
+});
 
 const schema = makeExecutableSchema({
   typeDefs,
