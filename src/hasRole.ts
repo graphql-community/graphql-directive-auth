@@ -19,8 +19,8 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
       });
     }
 
-    checkRole(auth: any, requiredRoles: any) {
-      const userRole = auth.role;
+    checkRole(context: any, requiredRoles: any) {
+      const userRole = context.auth.role;
 
       if (!userRole) {
         throw new Error(`Invalid token payload, missing role property inside!`);
@@ -33,7 +33,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
 
       if (!hasNeededRole) {
         throw new Error(
-          `Must have role: ${requiredRoles}, you have role: ${auth.role}`
+          `Must have role: ${requiredRoles}, you have role: ${userRole}`
         );
       }
     }
@@ -49,8 +49,10 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
 
         const checkRole = checkRoleFunc || this.checkRole;
 
+        const newContext = { ...context, auth };
+
         try {
-          checkRole(auth, allowedRoles);
+          checkRole(newContext, allowedRoles);
         } catch (error) {
           if (!hasResolveFn) {
             return null;
@@ -59,7 +61,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
           throw error;
         }
 
-        return resolve.call(this, root, args, { ...context, auth }, info);
+        return resolve.call(this, root, args, { context: newContext }, info);
       };
     }
   };
