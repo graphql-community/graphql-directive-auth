@@ -61,7 +61,7 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
           throw error;
         }
 
-        return resolve.call(this, root, args, { context: newContext }, info);
+        return resolve.call(this, root, args, { ...newContext }, info);
       };
     }
   };
