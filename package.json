@@ -21,7 +21,8 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly",
-    "token": "node generateToken"
+    "token": "node generateToken",
+    "prepublish": "yarn build"
   },
   "peerDependencies": {
     "graphql": "^0.13.2",
