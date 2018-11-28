@@ -30,20 +30,10 @@ jobs:
           root: .
           paths: .
 
-  lint-and-test-node-6:
+  lint-and-test-node:
     <<: *test-defaults
     docker:
-      - image: circleci/node:6
-
-  lint-and-test-node-8:
-    <<: *test-defaults
-    docker:
-      - image: circleci/node:8
-
-  lint-and-test-node-9:
-    <<: *test-defaults
-    docker:
-      - image: circleci/node:9
+      - image: circleci/node
 
   publish:
     working_directory: ~/graphql-directive-auth
@@ -61,13 +51,7 @@ workflows:
   build-and-test:
     jobs:
       - install-dependencies
-      # - lint-and-test-node-6:
-      #     requires:
-      #       - install-dependencies
-      - lint-and-test-node-8:
-          requires:
-            - install-dependencies
-      - lint-and-test-node-9:
+      - lint-and-test-node:
           requires:
             - install-dependencies
       - publish:
