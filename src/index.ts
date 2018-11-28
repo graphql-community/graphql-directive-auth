@@ -16,7 +16,7 @@ export interface Args {
 }
 
 export default (args: Args = {}) => {
-  const auth = args.authenticateFunc ? authenticate : authenticate;
+  const auth = args.authenticateFunc || authenticate;
 
   return {
     isAuthenticated: isAuthenticated(auth),
