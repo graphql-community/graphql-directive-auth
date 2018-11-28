@@ -7,7 +7,7 @@ declare module 'graphql-directive-auth' {
   }
 
   interface Args {
-    authFun?: authFunc;
+    authenticateFunc?: authFunc;
     checkRoleFunc?: checkRoleFunc;
   }
 
