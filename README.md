@@ -40,10 +40,10 @@ We are able to use directives in two different way:
 
 To use the default directive behaviour, you need to set `APP_SECRET` environment variable, and that's all.
 
-### What `default` means, and what I **need to do**?
+### What `default` means, and what do I **need to do**?
 
-- `@isAuthenitaced` - Just after you set environment variables, you need to have a valid JWT token and send it by `Authorization` in the HTTP headers. That's all, the directive will be check your token and throw an error if the token is invalid or expired.
-- `@hasRole` - is for checking roles of an authenticated user. To use it correctly, inside your JWT token you should have the `role` property with the correct role. If the user role doesn't match with the provided role, then directive will throw an error.
+- `@isAuthenticated` - Just after you set environment variables, you need to have a valid JWT token and send it by `Authorization` in the HTTP headers. That's all, the directive will check your token and throw an error if the token is invalid or expired.
+- `@hasRole` - Checks roles of an authenticated user. To use it correctly, inside your JWT token you should have the `role` property with the correct role. If the user role doesn't match with the provided role, then directive will throw an error.
 
 > `@hasRole` before checking role is doing authentication to get roles from JWT token.
 
@@ -73,7 +73,7 @@ const schema = makeExecutableSchema({
 
 ## Custom behaviour of authentication functions
 
-If you need custom Authentication you can pass your authenticated function to the main `AuthDirective` functions.
+If you need custom Authentication you can pass your authentication function to the main `AuthDirective` functions. Your authentication function should return an object which will be available via `context.auth`.
 
 Authentication function signature:
 
@@ -100,8 +100,8 @@ import AuthDirectives from 'graphql-directive-auth';
 const AuthDirectives = require('graphql-directive-auth');
 
 const customAuth = AuthDirectives({
-  authenticateFunc: cusomFunc,
-  checkRoleFunc: cusomFunc
+  authenticateFunc: authenticateCustomFunc,
+  checkRoleFunc: checkRoleCustomFunc
 });
 
 const schema = makeExecutableSchema({
@@ -131,18 +131,18 @@ export default {
 
 ## Custom check role function
 
-The same as authenticate function you can add your own logic to checking roles.
+Same as with the authenticate function, you can add your own logic to checking roles.
 
 ### How to create your own function
 
-- Function accept two parameters, one is the context and the second is value from the directive use
-- To reject an acces to the particular field, you need to throw an Error that will be caught by the directive and returned if required.
-- function don't need to return enything special
+- Function accepts two parameters, one is the context and the second is the value from the directive
+- To reject an access to the particular field, you need to throw an Error that will be caught by the directive and returned if required.
+- Function doesn't need to return anything special
 
 # Directive Parameters
 
-- '@isAuthenticated' - check if user is authenticated
-- '@hasRole(role: "user, admin")' - check if user is authenticated
+- '@isAuthenticated' - checks if user is authenticated
+- '@hasRole(role: "user, admin")' - checks if user is authenticated and has the specified roles
 
 > if you use [`graphql-import`](https://github.com/prismagraphql/graphql-import) then you need to add this definition on top of the schema:
 
