@@ -62,7 +62,7 @@ const schema = makeExecutableSchema({
   resolvers,
   schemaDirectives: {
     // to use @hasRole and @isAuthenticated directives
-    ...AuthDirective,
+    ...AuthDirective(),
     // custom name for @isAuthenticated
     auth: AuthDirective().isAuthenticated,
     // custom name for @hasRole
