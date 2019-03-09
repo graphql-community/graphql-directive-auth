@@ -15,7 +15,7 @@ export interface Args {
   checkRoleFunc?: checkRoleFunc;
 }
 
-export const AuthDirective = (args: Args = {}) => {
+const AuthDirective = (args: Args = {}) => {
     const auth = args.authenticateFunc || authenticate;
 
     return {
@@ -23,4 +23,4 @@ export const AuthDirective = (args: Args = {}) => {
         hasRole: hasRole(auth, args.checkRoleFunc),
     } as any;
 }
-export { authenticate, checkRole }
+export { AuthDirective, authenticate, checkRole }
