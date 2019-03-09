@@ -15,12 +15,12 @@ export interface Args {
   checkRoleFunc?: checkRoleFunc;
 }
 
-const AuthDirective = (args: Args = {}) => {
+export const AuthDirective = (args: Args = {}) => {
     const auth = args.authenticateFunc || authenticate;
 
     return {
         isAuthenticated: isAuthenticated(auth),
         hasRole: hasRole(auth, args.checkRoleFunc),
-    };
+    } as any;
 }
-export { AuthDirective, authenticate, checkRole }
+export { authenticate, checkRole }
