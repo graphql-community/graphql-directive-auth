@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import isAuthenticated from './isAuthenticated';
 import hasRole from './hasRole';
-import { authenticate } from './utils';
+import { authenticate, checkRole } from './utils';
 
 // TODO: Add more correct type here
 export interface CheckRole {
@@ -15,11 +15,12 @@ export interface Args {
   checkRoleFunc?: checkRoleFunc;
 }
 
-export default (args: Args = {}) => {
-  const auth = args.authenticateFunc || authenticate;
+const AuthDirective = (args: Args = {}) => {
+    const auth = args.authenticateFunc || authenticate;
 
-  return {
-    isAuthenticated: isAuthenticated(auth),
-    hasRole: hasRole(auth, args.checkRoleFunc),
-  };
-};
+    return {
+        isAuthenticated: isAuthenticated(auth),
+        hasRole: hasRole(auth, args.checkRoleFunc),
+    } as any;
+}
+export { AuthDirective, authenticate, checkRole }

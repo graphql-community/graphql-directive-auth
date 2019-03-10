@@ -33,3 +33,22 @@ export const authenticate = (context: any) => {
 
   throw new AuthError('Not authorized!', 401);
 };
+
+export const checkRole = (context: any, requiredRoles: any) => {
+    const userRole = context.auth.role;
+
+    if (!userRole) {
+        throw new Error(`Invalid token payload, missing role property inside!`);
+    }
+
+    const hasNeededRole = requiredRoles
+        .split(',')
+        .map((role: any) => role.trim().toLowerCase())
+        .includes(userRole.toLowerCase());
+
+    if (!hasNeededRole) {
+        throw new Error(
+            `Must have role: ${requiredRoles}, you have role: ${userRole}`
+        );
+    }
+}

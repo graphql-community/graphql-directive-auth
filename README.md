@@ -50,9 +50,9 @@ To use the default directive behaviour, you need to set `APP_SECRET` environment
 ### Example:
 
 ```js
-import AuthDirective from 'graphql-directive-auth';
+import { AuthDirective } from 'graphql-directive-auth';
 // or
-const AuthDirective = require('graphql-directive-auth');
+const AuthDirective = require('graphql-directive-auth').AuthDirective;
 
 // set environment variable, but in better way ;)
 process.env.APP_SECRET = 'your_secret_key';
@@ -95,9 +95,9 @@ context => {
 usage:
 
 ```js
-import AuthDirectives from 'graphql-directive-auth';
+import { AuthDirective } from 'graphql-directive-auth';
 // or
-const AuthDirectives = require('graphql-directive-auth');
+const AuthDirectives = require('graphql-directive-auth').AuthDirective;
 
 const customAuth = AuthDirectives({
   authenticateFunc: authenticateCustomFunc,

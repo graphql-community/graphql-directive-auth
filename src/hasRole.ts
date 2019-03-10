@@ -5,7 +5,7 @@ import {
   defaultFieldResolver,
   GraphQLString,
 } from 'graphql';
-import { authFunc, checkRoleFunc, CheckRole } from './index';
+import {authFunc, checkRoleFunc, CheckRole, checkRole} from './index';
 
 export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
   class HasRole extends SchemaDirectiveVisitor {
@@ -19,25 +19,6 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
       });
     }
 
-    checkRole(context: any, requiredRoles: any) {
-      const userRole = context.auth.role;
-
-      if (!userRole) {
-        throw new Error(`Invalid token payload, missing role property inside!`);
-      }
-
-      const hasNeededRole = requiredRoles
-        .split(',')
-        .map((role: any) => role.trim().toLowerCase())
-        .includes(userRole.toLowerCase());
-
-      if (!hasNeededRole) {
-        throw new Error(
-          `Must have role: ${requiredRoles}, you have role: ${userRole}`
-        );
-      }
-    }
-
     visitFieldDefinition(field: any) {
       const { resolve = defaultFieldResolver } = field;
 
@@ -47,12 +28,12 @@ export default (authenticate: authFunc, checkRoleFunc?: checkRoleFunc) =>
         const auth = authenticate(context);
         const allowedRoles = this.args.role;
 
-        const checkRole = checkRoleFunc || this.checkRole;
+        const checkRoleFn = checkRoleFunc || checkRole;
 
         const newContext = { ...context, auth };
 
         try {
-          checkRole(newContext, allowedRoles);
+          checkRoleFn(newContext, allowedRoles);
         } catch (error) {
           if (!hasResolveFn) {
             return null;
