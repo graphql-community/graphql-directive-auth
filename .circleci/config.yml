@@ -13,7 +13,7 @@ jobs:
   install-dependencies:
     working_directory: ~/graphql-directive-auth
     docker:
-      - image: circleci/node:6
+      - image: circleci/node
     steps:
       - checkout
       - attach_workspace:
@@ -38,7 +38,7 @@ jobs:
   publish:
     working_directory: ~/graphql-directive-auth
     docker:
-      - image: circleci/node:6
+      - image: circleci/node
     steps:
       - attach_workspace:
           at: ~/graphql-directive-auth
