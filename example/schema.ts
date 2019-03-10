@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express';
-import AuthDirective from '../src/index';
+import { AuthDirective } from '../src/index';
 import { makeExecutableSchema } from 'graphql-tools';
 
 const typeDefs = gql`

@@ -1,6 +1,6 @@
 import { graphql } from 'graphql';
 import MockExpressRequest from 'mock-express-request';
-import AuthDirective from '../src/index';
+import { AuthDirective } from '../src/index';
 import schema from '../example/schema';
 
 beforeAll(() => {
