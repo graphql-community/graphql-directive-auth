@@ -11,5 +11,11 @@ declare module 'graphql-directive-auth' {
     checkRoleFunc?: checkRoleFunc;
   }
 
-  export default function(args?: Args): AuthDirective;
+  interface DirectivesInterface {
+    AuthDirective: AuthDirective;
+    authenticateFunc?: authFunc;
+    checkRoleFunc?: checkRoleFunc;
+  }
+
+  export default function(args?: Args): DirectivesInterface;
 }
