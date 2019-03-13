@@ -3,7 +3,6 @@ import isAuthenticated from './isAuthenticated';
 import hasRole from './hasRole';
 import { authenticate, checkRole } from './utils';
 
-// TODO: Add more correct type here
 export interface CheckRole {
   userRole: any;
 }

@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "nodemon example/dev.js",
     "test": "jest",
-    "build": "babel src --out-dir dist --extensions \".ts\" --source-maps inline",
+    "build": "tsc",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly",
