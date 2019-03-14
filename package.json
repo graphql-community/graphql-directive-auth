@@ -13,11 +13,11 @@
   },
   "author": "Czysty <lukasz.czyszczonik@gmail.com>",
   "license": "MIT",
-  "typings": "./src/typings/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "dev": "nodemon example/dev.js",
     "test": "jest",
-    "build": "babel src --out-dir dist --extensions \".ts\" --source-maps inline",
+    "build": "tsc",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "build:types": "tsc --emitDeclarationOnly",

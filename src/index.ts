@@ -3,7 +3,6 @@ import isAuthenticated from './isAuthenticated';
 import hasRole from './hasRole';
 import { authenticate, checkRole } from './utils';
 
-// TODO: Add more correct type here
 export interface CheckRole {
   userRole: any;
 }
@@ -16,11 +15,11 @@ export interface Args {
 }
 
 const AuthDirective = (args: Args = {}) => {
-  const auth = args.authenticateFunc || authenticate;
+    const auth = args.authenticateFunc || authenticate;
 
-  return {
-    isAuthenticated: isAuthenticated(auth),
-    hasRole: hasRole(auth, args.checkRoleFunc),
-  } as any;
-};
-export { AuthDirective, authenticate, checkRole };
+    return {
+        isAuthenticated: isAuthenticated(auth),
+        hasRole: hasRole(auth, args.checkRoleFunc),
+    } as any;
+}
+export { AuthDirective, authenticate, checkRole }
