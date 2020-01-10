@@ -131,7 +131,43 @@ export default {
 
 ## Custom check role function
 
-Same as with the authenticate function, you can add your own logic to checking roles.
+Same as with the authenticate function, you can add your own logic to checking roles. Here is an example of implementation:
+
+```js
+import { AuthenticationError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
+import { jwtSecret } from '../config';
+
+export default (ctx, value) => {
+  const authorization =
+    ctx.request && ctx.request.headers && ctx.request.headers.authorization;
+
+  if (!authorization) {
+    throw new AuthenticationError('Unauthorized access!');
+  }
+
+  const token = authorization.replace('Bearer ', '');
+
+  const decodedToken = jwt.verify(token, jwtSecret);
+
+  const mandatoryRoles = value.split(',').map((s) => s.trim());
+
+  if (decodedToken && decodedToken.user && decodedToken.user.roles) {
+    const { roles } = decodedToken.user;
+    const rolesIntersection = roles.filter((role) =>
+      mandatoryRoles.includes(role),
+    );
+
+    if (rolesIntersection.length === 0) {
+      throw new AuthenticationError('Invalid role!');
+    }
+
+    return rolesIntersection;
+  }
+
+  throw new AuthenticationError('Invalid token!');
+};
+```
 
 ### How to create your own function
 
