@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getDirectiveDeclaration should be defined 1`] = `
-GraphQLDirective {
-  "args": Array [],
+Object {
+  "args": Object {},
   "astNode": undefined,
   "description": undefined,
+  "extensions": undefined,
+  "isRepeatable": false,
   "locations": Array [
     "FIELD_DEFINITION",
   ],

@@ -3,6 +3,9 @@ import { AuthDirective } from '../src/index';
 import { makeExecutableSchema } from 'graphql-tools';
 
 const typeDefs = gql`
+  directive @isAuthenticated on FIELD_DEFINITION
+  directive @hasRole(role: String) on FIELD_DEFINITION
+
   type User {
     id: ID!
     username: String!

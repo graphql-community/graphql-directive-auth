@@ -9,7 +9,7 @@ beforeAll(() => {
 
 test('getDirectiveDeclaration should be defined', () => {
   expect(
-    AuthDirective().isAuthenticated.getDirectiveDeclaration()
+    AuthDirective().isAuthenticated.getDirectiveDeclaration().toConfig()
   ).toMatchSnapshot();
 });
 
