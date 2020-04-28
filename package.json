@@ -44,7 +44,7 @@
     "eslint-config-callstack-io": "^1.1.2",
     "express": "^4.16.4",
     "graphql": "^0.13.2",
-    "graphql-tools": "^3.0.5",
+    "graphql-tools": "^5.0.0",
     "jest": "^25.4.0",
     "mock-express-request": "^0.2.2",
     "nock": "^10.0.2",
