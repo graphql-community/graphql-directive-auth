@@ -8,7 +8,7 @@ beforeAll(() => {
 });
 
 test('getDirectiveDeclaration should be defined', () => {
-  expect(AuthDirective().hasRole.getDirectiveDeclaration()).toMatchSnapshot();
+  expect(AuthDirective().hasRole.getDirectiveDeclaration().toConfig()).toMatchSnapshot();
 });
 
 test('if throw error if no role inside token payload', () =>
