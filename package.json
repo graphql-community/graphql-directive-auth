@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "jsonwebtoken": "^8.4.0"
+    "jsonwebtoken": "^9.0.0"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$",
